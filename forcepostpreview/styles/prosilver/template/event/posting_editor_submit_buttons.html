@@ -1,0 +1,69 @@
+<style>
+	#postform input.fpp-disabled,
+	#postform input.fpp-disabled:hover,
+	#postform input.fpp-disabled:focus {
+		opacity: .5;
+		cursor: not-allowed;
+		filter: grayscale(100%);
+		box-shadow: none;
+	}
+</style>
+<script>
+// <![CDATA[
+(function () {
+	'use strict';
+
+	var fpp = {
+		previewed: <!-- IF S_DISPLAY_PREVIEW -->true<!-- ELSE -->false<!-- ENDIF -->,
+		message: '{LA_FPP_PREVIEW_REQUIRED}'
+	};
+
+	function ready(fn) {
+		if (document.readyState !== 'loading') {
+			fn();
+		} else {
+			document.addEventListener('DOMContentLoaded', fn);
+		}
+	}
+
+	ready(function () {
+		var form = document.getElementById('postform');
+		if (!form) {
+			return;
+		}
+
+		// The main "Submit" button is the input named "post"; Preview and
+		// Save draft stay usable so the user can always reach a preview.
+		var submit = form.querySelector('input[name="post"]');
+		if (!submit) {
+			return;
+		}
+
+		var message = document.getElementById('message');
+
+		function lock() {
+			submit.disabled = true;
+			submit.className += submit.className.indexOf('fpp-disabled') === -1 ? ' fpp-disabled' : '';
+			submit.setAttribute('title', fpp.message);
+		}
+
+		function unlock() {
+			submit.disabled = false;
+			submit.className = submit.className.replace(/\s*fpp-disabled/g, '');
+			submit.removeAttribute('title');
+		}
+
+		if (fpp.previewed) {
+			unlock();
+			// Editing the message after previewing requires a fresh preview,
+			// so the user always submits exactly what they previewed.
+			if (message) {
+				message.addEventListener('input', lock);
+			}
+		} else {
+			lock();
+		}
+	});
+})();
+// ]]>
+</script>

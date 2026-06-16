@@ -1,0 +1,5 @@
+services:
+    ecyaz.forcepostpreview.listener:
+        class: ecyaz\forcepostpreview\event\listener
+        tags:
+            - { name: event.listener }
