@@ -1,0 +1,132 @@
+<div id="plr-backdrop" class="plr-backdrop" style="display: none;"></div>
+<div id="plr-modal" class="phpbb_alert" data-min="{POSTLENGTHREMINDER_MIN_CHARS}" role="dialog" aria-modal="true" style="display: none;">
+	<a href="#" id="plr-close" class="alert_close">
+		<i class="icon fa-times-circle fa-fw" aria-hidden="true"></i>
+	</a>
+	<h3 class="alert_title">{L_POSTLENGTHREMINDER_CONFIRM_TITLE}</h3>
+	<div class="alert_text">
+		<p>{POSTLENGTHREMINDER_MESSAGE}</p>
+		<fieldset class="submit-buttons">
+			<input type="button" id="plr-expand" class="button1" value="{L_POSTLENGTHREMINDER_KEEP_EDITING}" />&nbsp;
+			<input type="button" id="plr-post" class="button2" value="{L_POSTLENGTHREMINDER_POST_ANYWAY}" />
+		</fieldset>
+	</div>
+</div>
+<style>
+	#plr-backdrop {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 49;
+	}
+</style>
+<script>
+// <![CDATA[
+(function () {
+	'use strict';
+
+	function ready(fn) {
+		if (document.readyState !== 'loading') {
+			fn();
+		} else {
+			document.addEventListener('DOMContentLoaded', fn);
+		}
+	}
+
+	ready(function () {
+		var form = document.getElementById('postform');
+		var modal = document.getElementById('plr-modal');
+		var backdrop = document.getElementById('plr-backdrop');
+		if (!form || !modal || !backdrop) {
+			return;
+		}
+
+		var minChars = parseInt(modal.getAttribute('data-min'), 10) || 0;
+		if (minChars <= 0) {
+			return;
+		}
+
+		var textarea = document.getElementById('message');
+		var postBtn = form.querySelector('input[name="post"]');
+		if (!textarea || !postBtn) {
+			return;
+		}
+
+		var expandBtn = document.getElementById('plr-expand');
+		var postAnywayBtn = document.getElementById('plr-post');
+		var closeBtn = document.getElementById('plr-close');
+		var bypass = false;
+
+		function openModal() {
+			backdrop.style.display = 'block';
+			modal.style.display = 'block';
+			if (expandBtn) {
+				expandBtn.focus();
+			}
+		}
+
+		function closeModal() {
+			modal.style.display = 'none';
+			backdrop.style.display = 'none';
+		}
+
+		// "Keep editing" — dismiss and refocus the editor (does NOT post).
+		function keepEditing(e) {
+			if (e) {
+				e.preventDefault();
+			}
+			closeModal();
+			textarea.focus();
+		}
+
+		// "Post anyway" — submit the post; the bypass flag lets the
+		// re-fired submit through without prompting again.
+		function postAnyway() {
+			closeModal();
+			bypass = true;
+			postBtn.click();
+		}
+
+		if (expandBtn) {
+			expandBtn.addEventListener('click', keepEditing);
+		}
+		if (closeBtn) {
+			closeBtn.addEventListener('click', keepEditing);
+		}
+		if (postAnywayBtn) {
+			postAnywayBtn.addEventListener('click', postAnyway);
+		}
+		backdrop.addEventListener('click', keepEditing);
+		document.addEventListener('keydown', function (e) {
+			// Esc closes the dialog without posting (safe default).
+			if (e.keyCode === 27 && modal.style.display === 'block') {
+				keepEditing(e);
+			}
+		});
+
+		form.addEventListener('submit', function (e) {
+			if (bypass) {
+				return;
+			}
+
+			// Only guard the main "Submit" action; let Preview and Save draft through.
+			var submitter = e.submitter;
+			if (submitter && submitter.name && submitter.name !== 'post') {
+				return;
+			}
+
+			var len = textarea.value.trim().length;
+
+			// Empty posts are handled by phpBB itself; only warn on short-but-not-empty.
+			if (len > 0 && len < minChars) {
+				e.preventDefault();
+				openModal();
+			}
+		});
+	});
+})();
+// ]]>
+</script>

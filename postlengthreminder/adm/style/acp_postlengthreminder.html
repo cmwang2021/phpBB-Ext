@@ -1,0 +1,30 @@
+<!-- INCLUDE overall_header.html -->
+
+<h1>{L_ACP_POSTLENGTHREMINDER_SETTINGS}</h1>
+
+<p>{L_ACP_POSTLENGTHREMINDER_EXPLAIN}</p>
+
+<form id="acp_postlengthreminder" method="post" action="{U_ACTION}">
+	<fieldset>
+		<legend>{L_ACP_POSTLENGTHREMINDER_SETTINGS}</legend>
+		<dl>
+			<dt><label for="postlengthreminder_min_chars">{L_POSTLENGTHREMINDER_MIN_CHARS}{L_COLON}</label><br /><span>{L_POSTLENGTHREMINDER_MIN_CHARS_EXPLAIN}</span></dt>
+			<dd><input type="number" min="0" id="postlengthreminder_min_chars" name="postlengthreminder_min_chars" value="{POSTLENGTHREMINDER_MIN_CHARS}" /></dd>
+		</dl>
+		<dl>
+			<dt><label for="postlengthreminder_message">{L_POSTLENGTHREMINDER_MESSAGE}{L_COLON}</label><br /><span>{L_POSTLENGTHREMINDER_MESSAGE_EXPLAIN}</span></dt>
+			<dd><textarea id="postlengthreminder_message" name="postlengthreminder_message" rows="3" cols="40">{POSTLENGTHREMINDER_MESSAGE}</textarea></dd>
+		</dl>
+	</fieldset>
+
+	<fieldset>
+		<legend>{L_ACP_SUBMIT_CHANGES}</legend>
+		<p class="submit-buttons">
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+		</p>
+		{S_FORM_TOKEN}
+	</fieldset>
+</form>
+
+<!-- INCLUDE overall_footer.html -->

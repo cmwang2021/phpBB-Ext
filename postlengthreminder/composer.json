@@ -1,0 +1,20 @@
+{
+    "name": "ecyaz/postlengthreminder",
+    "type": "phpbb-extension",
+    "description": "Warns users before submitting a post that is shorter than a configurable length.",
+    "homepage": "https://github.com/ECYaz/phpBB-Extensions",
+    "version": "1.0.0",
+    "license": "GPL-2.0-only",
+    "authors": [
+        { "name": "ECYaz" }
+    ],
+    "require": {
+        "php": ">=7.2"
+    },
+    "extra": {
+        "display-name": "Post Length Reminder",
+        "soft-require": {
+            "phpbb/phpbb": ">=3.3.0,<4.0.0@dev"
+        }
+    }
+}

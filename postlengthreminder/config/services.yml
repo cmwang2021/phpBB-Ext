@@ -1,0 +1,8 @@
+services:
+    ecyaz.postlengthreminder.listener:
+        class: ecyaz\postlengthreminder\event\listener
+        arguments:
+            - '@config'
+            - '@language'
+        tags:
+            - { name: event.listener }
