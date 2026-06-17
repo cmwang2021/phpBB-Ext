@@ -1,0 +1,14 @@
+{% if S_INCLUDE_DIGESTS_MANUAL_MAILER %}
+{% if not definition.INCLUDED_JQUERYUI1131JS %}
+{% DEFINE INCLUDED_JQUERYUI1131JS = true %}
+{% INCLUDEJS '@phpbbservices_digests/jquery-ui.min.js' %}
+{% endif %}
+{% if not definition.INCLUDED_DATETIMEPICKERCSS %}
+{% DEFINE INCLUDED_DATETIMEPICKERCSS = true %}
+{% INCLUDECSS '@phpbbservices_digests/jquery.datetimepicker.css' %}
+{% endif %}
+{% if not definition.INCLUDED_DATETIMEPICKERJS %}
+{% DEFINE INCLUDED_DATETIMEPICKERJS = true %}
+{% INCLUDEJS '@phpbbservices_digests/jquery.datetimepicker.js' %}
+{% endif %}
+{% endif %}

@@ -1,0 +1,41 @@
+
+{% if S_SHOW_PMS %}
+{{ lang('YOU_HAVE_PRIVATE_MESSAGES') }}
+
+{% for pm in loops.pm %}
+{{ pm.NEW_UNREAD }}{{ lang('PRIVATE_MESSAGE') }}
+{{ lang('SUBJECT') }}{{ lang('COLON') }} {{ pm.PRIVATE_MESSAGE_SUBJECT }}
+{{ lang('FROM') }}{{ lang('COLON') }} {{ pm.FROM }} {{ lang('DIGESTS_ON') }} {{ pm.DATE }}
+{{ pm.CONTENT }}
+
+{% else %}
+{{ lang('DIGESTS_NO_PRIVATE_MESSAGES') }}
+{% endfor %}
+____________________________________________________________
+{% endif %}
+
+{% for forum in loops.forum %}
+
+
+{{ lang('FORUM') }}{{ lang('COLON') }} {{ forum.FORUM }}
+
+{% for topic in forum.topic %}
+
+
+{{ lang('TOPIC') }}{{ lang('COLON') }} {{ topic.TOPIC }}
+
+{% for post in topic.post %}
+
+
+{% if not post.S_FIRST_POST %}
+{{ lang('DIGESTS_REPLY') }}{{ lang('COLON') }} {{ post.SUBJECT }}
+{% endif %}
+{{ lang('DIGESTS_BY') }}{{ lang('COLON') }} {{ post.FROM }} {{ lang('DIGESTS_ON') }} {{ post.DATE }}
+{% if S_SHOW_POST_TEXT %}{{ post.CONTENT }}{% endif %}
+
+{% endfor %}
+{% endfor %}
+{% else %}
+
+{{ lang('DIGESTS_NO_POSTS') }}
+{% endfor %}

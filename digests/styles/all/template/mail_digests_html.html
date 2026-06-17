@@ -1,0 +1,73 @@
+<div class="post" id="skip">
+	<div class="postbody">
+		{% if S_SHOW_PMS %}
+		<h2 class="black">{{ lang('YOU_HAVE_PRIVATE_MESSAGES') }}</h2>
+
+			{% for pm in loops.pm %}
+		<h3>{{ pm.NEW_UNREAD }}{{ lang('PRIVATE_MESSAGE') }}</h3>
+				{% if pm.S_USE_CLASSIC_TEMPLATE %}
+		<table>
+			<tr>
+				<th>{{ lang('DIGESTS_LINK') }}</th><th>{{ lang('DIGESTS_POST_TIME') }}</th><th>{{ lang('DIGESTS_AUTHOR') }}</th><th>{{ lang('PRIVATE_MESSAGE_2') }}</th>
+			</tr>
+				{% endif %}
+				{% if not pm.S_USE_CLASSIC_TEMPLATE %}
+			<h4 id="{{ pm.ANCHOR }}">{{ lang('SUBJECT') }}{{ lang('COLON') }} {{ pm.PRIVATE_MESSAGE_SUBJECT }}</h4>
+			<p class="author">{{ lang('FROM') }}{{ lang('COLON') }} {{ pm.FROM }} {{ lang('DIGESTS_ON') }} {{ pm.DATE }}</p>
+			<div class="content">{{ pm.CONTENT }}</div>
+				{% else %}
+			<tr id="{{ pm.ANCHOR }}">
+				<td style="text-align: center;">{{ pm.PRIVATE_MESSAGE_LINK }}</td><td>{{ pm.DATE }}</td><td>{{ pm.FROM }}</td><td>{{ pm.CONTENT }}</td>
+			</tr>
+					{% if pm.S_LAST_ROW %}
+		</table>
+					{% endif %}
+				{% endif %}
+		<hr>
+			{% else %}
+		<div class="content">{{ lang('DIGESTS_NO_PRIVATE_MESSAGES') }}</div>
+		<hr>
+			{% endfor %}
+		{% endif %}
+
+		{% for forum in loops.forum %}
+		<div class="forum">
+			<h3 class="black">{{ lang('FORUM') }}{{ lang('COLON') }} {{ forum.FORUM }}</h3>
+			{% for topic in forum.topic %}
+			<div class="topic">
+				<h3>{{ lang('TOPIC') }}{{ lang('COLON') }} {{ topic.TOPIC }}</h3>
+				{% if topic.S_USE_CLASSIC_TEMPLATE %}
+				<table>
+					<tr>
+						<th>{{ lang('DIGESTS_LINK') }}</th><th>{{ lang('DIGESTS_POST_TIME') }}</th><th>{{ lang('AUTHOR') }}</th>{% if S_SHOW_POST_TEXT %}<th>{{ lang('DIGESTS_POST_TEXT') }}</th>{% endif %}
+					</tr>
+				{% endif %}
+				{% for post in topic.post %}
+					{% if not topic.S_USE_CLASSIC_TEMPLATE %}
+					<div class="post">
+						{% if not post.S_FIRST_POST %}
+						<h4>{{ lang('DIGESTS_REPLY') }}{{ lang('COLON') }} {{ post.SUBJECT }}</h4>
+						{% endif %}
+						{% if S_SHOW_POST_TEXT %}<br>{% endif %}
+						<p class="author" id="{{ post.ANCHOR }}">{{ lang('DIGESTS_BY') }}{{ lang('COLON') }} {{ post.FROM }} {{ lang('DIGESTS_ON') }} {{ post.DATE }}</p>
+						{% if S_SHOW_POST_TEXT %}
+						<div class="content">{{ post.CONTENT }}</div>
+						{% endif %}
+					</div>
+					{% else %}
+					<tr id="{{ post.ANCHOR }}">
+						<td style="text-align: center;">{{ post.POST_LINK }}</td><td>{{ post.DATE }}</td><td>{{ post.FROM }}</td>{% if S_SHOW_POST_TEXT %}<td>{{ post.CONTENT }}</td>{% endif %}
+					</tr>
+						{% if post.S_LAST_ROW %}
+				</table>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+			</div>
+			{% endfor %}
+		</div>
+		{% else %}
+		<div class="forum">{{ lang('DIGESTS_NO_POSTS') }}</div>
+		{% endfor %}
+	</div>
+</div>

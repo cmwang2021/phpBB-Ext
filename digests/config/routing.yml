@@ -1,0 +1,3 @@
+phpbbservices_digests_controller:
+    path: /digests/unsubscribe
+    defaults: { _controller: phpbbservices.digests.controller.unsubscribe:handle }

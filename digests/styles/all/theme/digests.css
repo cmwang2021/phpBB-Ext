@@ -1,0 +1,64 @@
+input[type="number"]
+{
+	text-align: right;
+}
+.autowidth {
+	width: 5em !important;
+}
+.ui-dialog {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	text-align: center;
+	width: 100%;
+	height: auto;
+	background-color: white;
+	border: 1px solid #CADCEB;
+	float: none;
+	margin: inherit;
+}
+.ui-dialog-content {
+	text-align: center;
+	padding: 5px;
+}
+.ui-dialog-titlebar {
+	background-color: #CADCEB;
+	font-weight: 800;
+	padding: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+.ui-dialog-title{
+	width: 100%;
+}
+.ui-dialog-titlebar-close {
+	display: none;
+}
+.ui-dialog .ui-dialog-title {
+	width: 100%;
+}
+.ui-button {
+	width: auto;
+	background-color: #CADCEB;
+	font-weight: 800;
+	padding: 5px;
+	border: 1px solid #CADCEB;
+	margin: 5px;
+}
+.ui-widget {
+	border-radius: 5px;
+}
+.ui-dialog-buttonpane {
+	float:none;
+	padding: 0;
+}
+.ui-dialog-buttonset {
+	float: none;
+	text-align: center;
+	width: 100%;
+}
+.top-3px {
+	margin-top: 3px;
+}
+.position-relative {
+	position:relative;
+	left: 20px;
+}

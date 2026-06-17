@@ -1,0 +1,100 @@
+imports:
+    - { resource: tables.yml }
+
+services:
+    phpbbservices.digests.controller.acp:
+        class: phpbbservices\digests\controller\acp_controller
+        arguments:
+            - '@auth'
+            - '@config'
+            - '@dbal.conn'
+            - '@phpbbservices.digests.common'
+            - '@language'
+            - '@phpbbservices.digests.cron.task.cron_task'
+            - '@pagination'
+            - '@ext.manager'
+            - '@log'
+            - '@path_helper'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+            - '@request'
+            - '@template'
+            - '@user'
+            - '%phpbbservices.digests.tables.digests_subscribed_forums_table%'
+            - '%phpbbservices.digests.tables.digests_report_table%'
+            - '%phpbbservices.digests.tables.digests_report_details_table%'
+    phpbbservices.digests.controller.ucp:
+        class: phpbbservices\digests\controller\ucp_controller
+        arguments:
+            - '@auth'
+            - '@config'
+            - '@dbal.conn'
+            - '@phpbbservices.digests.common'
+            - '@language'
+            - '@request'
+            - '@template'
+            - '@user'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+            - '%phpbbservices.digests.tables.digests_subscribed_forums_table%'
+    phpbbservices.digests.listener:
+        class: phpbbservices\digests\event\main_listener
+        arguments:
+            - '@config'
+            - '@template'
+            - '@request'
+            - '@dbal.conn'
+            - '%phpbbservices.digests.tables.digests_subscribed_forums_table%'
+            - '%phpbbservices.digests.tables.digests_report_details_table%'
+        tags:
+            - { name: event.listener }
+    phpbbservices.digests.common:
+        class: phpbbservices\digests\core\common
+        arguments:
+            - '@language'
+            - '%core.root_path%'
+            - '@filesystem'
+            - '@log'
+            - '@user'
+            - '%core.php_ext%'
+            - '@config'
+            - '@dbal.conn'
+    phpbbservices.digests.cron.task.cron_task:
+        class: phpbbservices\digests\cron\task\digests
+        arguments:
+            - '@config'
+            - '@request'
+            - '@user'
+            - '@dbal.conn'
+            - '%core.php_ext%'
+            - '%core.root_path%'
+            - '@template'
+            - '@auth'
+            - '@log'
+            - '@language'
+            - '@notification_manager'
+            - '@phpbbservices.digests.common'
+            - '@profilefields.manager'
+            - '@dispatcher'
+            - '%phpbbservices.digests.tables.digests_subscribed_forums_table%'
+            - '%phpbbservices.digests.tables.digests_report_table%'
+            - '%phpbbservices.digests.tables.digests_report_details_table%'
+        calls:
+            - [set_name, [phpbbservices.digests.cron.task.cron_task]]
+        tags:
+            - { name: cron.task }
+    phpbbservices.digests.controller.unsubscribe:
+        class: phpbbservices\digests\controller\unsubscribe
+        arguments:
+            - '@request'
+            - '@user'
+            - '@dbal.conn'
+            - '@phpbbservices.digests.common'
+            - '@language'
+            - '%phpbbservices.digests.tables.digests_subscribed_forums_table%'
+    phpbbservices.digests.includes.html_messenger:
+        class: phpbbservices\digests\includes\html_messenger
+        arguments:
+            - '@user'
+            - '@dispatcher'
+            - '@language'
