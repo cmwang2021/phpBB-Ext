@@ -1,0 +1,28 @@
+{
+    "name": "ecyaz/phpbbapihook",
+    "type": "phpbb-extension",
+    "description": "A secure, permission-controlled REST API for external applications to create and manage content in a phpBB board.",
+    "homepage": "https://github.com/ECYaz/phpBB-Extensions",
+    "version": "1.0.0",
+    "license": "GPL-2.0-only",
+    "keywords": ["phpbb", "extension", "rest", "api", "integration"],
+    "authors": [
+        {
+            "name": "ECYaz",
+            "homepage": "https://github.com/ECYaz",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.2"
+    },
+    "require-dev": {
+        "phpbb/epv": "dev-master"
+    },
+    "extra": {
+        "display-name": "phpbbAPIhook",
+        "soft-require": {
+            "phpbb/phpbb": ">=3.3.0,<4.0.0@dev"
+        }
+    }
+}

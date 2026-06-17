@@ -1,0 +1,26 @@
+ecyaz_phpbbapihook_topic_create:
+    path: /api/topics
+    methods: [POST]
+    defaults: { _controller: ecyaz.phpbbapihook.controller.topics:create_topic }
+
+ecyaz_phpbbapihook_topic_reply:
+    path: /api/topics/{topic_id}/reply
+    methods: [POST]
+    requirements: { topic_id: '\d+' }
+    defaults: { _controller: ecyaz.phpbbapihook.controller.topics:create_reply }
+
+ecyaz_phpbbapihook_topic_read:
+    path: /api/topics/{topic_id}
+    methods: [GET]
+    requirements: { topic_id: '\d+' }
+    defaults: { _controller: ecyaz.phpbbapihook.controller.topics:get_topic }
+
+ecyaz_phpbbapihook_forum_list:
+    path: /api/forums
+    methods: [GET]
+    defaults: { _controller: ecyaz.phpbbapihook.controller.forums:list_forums }
+
+ecyaz_phpbbapihook_me_permissions:
+    path: /api/me/permissions
+    methods: [GET]
+    defaults: { _controller: ecyaz.phpbbapihook.controller.meta:my_permissions }

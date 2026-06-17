@@ -1,0 +1,62 @@
+services:
+    ecyaz.phpbbapihook.credential_manager:
+        class: ecyaz\phpbbapihook\api\credential_manager
+        arguments:
+            - '@dbal.conn'
+            - '%core.table_prefix%apihook_keys'
+
+    ecyaz.phpbbapihook.logger:
+        class: ecyaz\phpbbapihook\api\logger
+        arguments:
+            - '@dbal.conn'
+            - '%core.table_prefix%apihook_log'
+
+    ecyaz.phpbbapihook.responder:
+        class: ecyaz\phpbbapihook\api\responder
+
+    ecyaz.phpbbapihook.authenticator:
+        class: ecyaz\phpbbapihook\api\authenticator
+        arguments:
+            - '@config'
+            - '@request'
+            - '@user'
+            - '@auth'
+            - '@dbal.conn'
+            - '@ecyaz.phpbbapihook.credential_manager'
+            - '@ecyaz.phpbbapihook.logger'
+            - '%core.table_prefix%users'
+
+    ecyaz.phpbbapihook.controller.topics:
+        class: ecyaz\phpbbapihook\controller\topics
+        arguments:
+            - '@ecyaz.phpbbapihook.authenticator'
+            - '@ecyaz.phpbbapihook.responder'
+            - '@ecyaz.phpbbapihook.logger'
+            - '@request'
+            - '@user'
+            - '@auth'
+            - '@config'
+            - '@dbal.conn'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+
+    ecyaz.phpbbapihook.controller.forums:
+        class: ecyaz\phpbbapihook\controller\forums
+        arguments:
+            - '@ecyaz.phpbbapihook.authenticator'
+            - '@ecyaz.phpbbapihook.responder'
+            - '@ecyaz.phpbbapihook.logger'
+            - '@request'
+            - '@user'
+            - '@auth'
+            - '@dbal.conn'
+
+    ecyaz.phpbbapihook.controller.meta:
+        class: ecyaz\phpbbapihook\controller\meta
+        arguments:
+            - '@ecyaz.phpbbapihook.authenticator'
+            - '@ecyaz.phpbbapihook.responder'
+            - '@ecyaz.phpbbapihook.logger'
+            - '@request'
+            - '@user'
+            - '@auth'

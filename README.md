@@ -10,6 +10,7 @@ A collection of phpBB extensions, ready to download and install.
 | PM Email Default (`ecyaz/pmemaildefault`) | 3.3.x | [`.zip`](pmemaildefault.zip) | [`pmemaildefault/`](pmemaildefault/) | Turns on email notifications for incoming private messages by default, for new and existing users. Installs to `ext/ecyaz/pmemaildefault/`. |
 | Force Post Preview (`ecyaz/forcepostpreview`) | 3.3.x | [`.zip`](forcePostPreview.zip) | [`forcepostpreview/`](forcepostpreview/) | Keeps the Submit button greyed-out on the posting screen until the user previews their post. Installs to `ext/ecyaz/forcepostpreview/`. |
 | Post Length Reminder (`ecyaz/postlengthreminder`) | 3.3.x | [`.zip`](postLengthReminder.zip) | [`postlengthreminder/`](postlengthreminder/) | Warns the user with a board-styled popup before submitting a post shorter than a configurable length; threshold and message are editable in the ACP. Installs to `ext/ecyaz/postlengthreminder/`. |
+| phpbbAPIhook (`ecyaz/phpbbapihook`) | 3.3.x | [`.zip`](phpbbapihook.zip) | [`phpbbapihook/`](phpbbapihook/) | Secure, permission-controlled REST API for external apps to create topics and replies. API keys are managed in the ACP, bound to a phpBB account, and every action runs with that account's permissions (forum allow-lists, rate limits, expiry, IP limits, audit log). Installs to `ext/ecyaz/phpbbapihook/`. |
 
 For each extension you can either download the ready-to-install `.zip` directly,
 or open its source folder to browse the files. Install steps are in each folder's README.
