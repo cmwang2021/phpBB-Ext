@@ -32,3 +32,16 @@ unchanged.
 - **Code style:** brought all PHP files to a clean pass of the phpBB Extension
   CodeSniffer ruleset (`ruleset-php-extensions`). These are whitespace/formatting-only
   changes; no logic was altered.
+
+### Known limitations
+- **SQLite + "Delete data" fails.** On SQLite boards, the full uninstall ("Delete data")
+  errors with `SQL ERROR [ sqlite3 ] near "2": syntax error`. This is a **phpBB core
+  limitation**, present in the official release too, not introduced by this build: the
+  digest send-hour is a `decimal(5,2)` column on `phpbb_users`, and phpBB's SQLite
+  column-drop routine (`phpbb/db/tools/tools.php::sql_column_remove`) rebuilds the table
+  with a regex that breaks on the comma inside the column type. The drop runs inside a
+  transaction that rolls back on the error, so **no data is lost** — the extension is just
+  not fully removed. **Workaround:** use **Disable** (safe on SQLite) instead of
+  "Delete data", or remove the data manually with SQL. **MySQL and PostgreSQL are
+  unaffected.** Verified working end-to-end (install, run, uninstall) on MySQL; the
+  digest-generation pipeline (including the UTF-8 fix) was verified by a real cron run.
