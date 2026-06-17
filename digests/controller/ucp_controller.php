@@ -279,7 +279,6 @@ class ucp_controller
 				}
 
 				else
-
 				{
 
 					if ($this->user->data['user_digest_type'] == constants::DIGESTS_NONE_VALUE)
@@ -325,7 +324,7 @@ class ucp_controller
 					}
 
 					// Populated the Hour Sent select control
-					for($i=0; $i<24; $i++)
+					for ($i=0; $i<24; $i++)
 					{
 						$this->template->assign_block_vars('hour_loop',array(
 							'COUNT' 						=>	$i,
@@ -468,7 +467,6 @@ class ucp_controller
 				// Indenting is cleverly handled by nesting <div> tags inside of other <div> tags, and the template defines the relative offset (20 pixels).
 
 				if (count($allowed_forums) > 0)
-
 				{
 
 					$sql_array = array(
@@ -564,7 +562,7 @@ class ucp_controller
 						if (!$all_by_default)
 						{
 							$check = false;
-							foreach($rowset as $this_row)
+							foreach ($rowset as $this_row)
 							{
 								if ($this_row['forum_id'] == $row['forum_id'])
 								{
@@ -646,7 +644,6 @@ class ucp_controller
 				}
 
 				else
-
 				{
 					// No forums to show!
 					$this->template->assign_vars(array(

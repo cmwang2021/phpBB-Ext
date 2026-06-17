@@ -31,17 +31,17 @@ class release_3_0_2_data extends \phpbb\db\migration\migration
 	{
 
 		return array(
-		
+
 			// Add Digest extension configuration variables
 			array('config.add',	array('phpbbservices_digests_block_images', 0)),
 			array('config.add', array('phpbbservices_digests_cron_task_last_gc', 0)), // timestamp when the digests mailer was last run
-			array('config.add', array('phpbbservices_digests_cron_task_gc', (60 * 60))), // seconds between runs -- digests are sent hourly		
+			array('config.add', array('phpbbservices_digests_cron_task_gc', (60 * 60))), // seconds between runs -- digests are sent hourly
 			array('config.add',	array('phpbbservices_digests_custom_stylesheet_path', '')),
 			array('config.add',	array('phpbbservices_digests_enable_auto_subscriptions', 0)),
 			array('config.add',	array('phpbbservices_digests_enable_custom_stylesheets', 0)),
 			array('config.add',	array('phpbbservices_digests_enable_log', 1)),
 			array('config.add',	array('phpbbservices_digests_enable_subscribe_unsubscribe', 0)),
-			array('config.add',	array('phpbbservices_digests_exclude_forums', 0)), 
+			array('config.add',	array('phpbbservices_digests_exclude_forums', 0)),
 			array('config.add',	array('phpbbservices_digests_from_email_name', '')),
 			array('config.add',	array('phpbbservices_digests_from_email_address', '')),
 			array('config.add',	array('phpbbservices_digests_host', 'phpbbservices.com')),
@@ -53,7 +53,7 @@ class release_3_0_2_data extends \phpbb\db\migration\migration
 			array('config.add',	array('phpbbservices_digests_registration_field', 0)),
 			array('config.add',	array('phpbbservices_digests_reply_to_email_address', '')),
 			array('config.add',	array('phpbbservices_digests_show_email', 0)),
-			array('config.add',	array('phpbbservices_digests_subscribe_all', 1)), 
+			array('config.add',	array('phpbbservices_digests_subscribe_all', 1)),
 			array('config.add',	array('phpbbservices_digests_test', 0)),
 			array('config.add',	array('phpbbservices_digests_test_clear_spool', 1)),
 			array('config.add',	array('phpbbservices_digests_test_day', date('j'))),

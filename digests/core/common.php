@@ -52,11 +52,11 @@ class common
 		$this->phpEx = $php_ext;
 		$this->user = $user;
 	}
-	
+
 	public function make_hour_string($hour, $user_dateformat)
 	{
-		
-		// This function returns a string representing an hour (0-23) for display. It attempts to be smart by looking at 
+
+		// This function returns a string representing an hour (0-23) for display. It attempts to be smart by looking at
 		// the user's date format and determining whether it supports AM/PM or not.
 
 		static $display_hour_array_am_pm = array(12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11);
@@ -82,7 +82,7 @@ class common
 				return $display_hour_array_am_pm[$hour] . strtolower($am_pm);
 			}
 		}
-		
+
 	}
 
 	public function make_tz_offset ($tz_text, $show_sign = false)

@@ -58,7 +58,7 @@ class main_listener implements EventSubscriberInterface
 			'core.user_active_flip_before'		=> 'set_no_digest_subscription'
 		);
 	}
-	
+
 	public function load_language_on_setup($event)
 	{
 		$lang_set_ext = $event['lang_set_ext'];
@@ -68,13 +68,13 @@ class main_listener implements EventSubscriberInterface
 		);
 		$event['lang_set_ext'] = $lang_set_ext;
 	}
-   	
+
 	public function subscribe_digests_on_registration($event)
 	{
-		
+
 		// This logic supports the subscribe a user to a digest automatically feature, if enabled. It also handles a subscription if the user is presented
 		// the option to subscribe on registration and they select yes.
-		
+
 		$subscribe_on_registration = $this->request->variable('digest', '0') == '1';	// Test if user wanted to subscribe to digests on registration
 
 		$is_human = ($event['sql_ary']['user_type'] == USER_IGNORE) ? false : true;
@@ -105,7 +105,7 @@ class main_listener implements EventSubscriberInterface
 
 			$event['sql_ary'] = array_merge($event['sql_ary'], $sql_ary);
 		}
-		
+
 	}
 
 	public function ucp_register_data_before($event)
@@ -118,7 +118,7 @@ class main_listener implements EventSubscriberInterface
 			'S_DIGESTS_REGISTER_CHECKED_NO' 	=> ($this->config['phpbbservices_digests_user_digest_registration']) ? false : true,
 			)
 		);
-		
+
 	}
 
 	/**

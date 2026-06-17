@@ -41,7 +41,7 @@ class html_messenger extends \messenger
 
 		global $config;
 		$this->config = $config;
-		
+
 		parent::__construct($use_queue);
 
 		$this->language 		= $language;
@@ -221,7 +221,7 @@ class html_messenger extends \messenger
 	/**
 	* Send out emails
 	*/
-	function msg_email($is_html=false)
+	function msg_email($is_html = false)
 	{
 
 		if (empty($this->config['email_enable']))

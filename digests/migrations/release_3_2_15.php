@@ -52,7 +52,7 @@ class release_3_2_15 extends \phpbb\db\migration\migration
 		{
 			$filesystem->remove($filepath);
 		}
-		
+
 	}
 
 }

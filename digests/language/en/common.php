@@ -119,8 +119,8 @@ If you have questions or feedback on your digests, please send them to the webma
 	'DIGESTS_PM'						=> ' PM', // not used if date/time formats do not permit AM and PM
 	'DIGESTS_PM_SUBJECT'				=> 'Private message subject',
 	'DIGESTS_POST_IMAGE_TEXT'			=> '<br>(Click on the image to see it full size.)',
-	'DIGESTS_POST_TEXT'					=> 'Post Text', 
-	'DIGESTS_POST_TIME'					=> 'Post Time', 
+	'DIGESTS_POST_TEXT'					=> 'Post Text',
+	'DIGESTS_POST_TIME'					=> 'Post Time',
 	'DIGESTS_POST_SIGNATURE_DELIMITER'	=> '<br>____________________<br>', // Place here whatever code (make sure it is valid HTML) you want to use to distinguish the end of a post from the beginning of the signature line
 	'DIGESTS_POSTED_TO_THE_TOPIC'		=> 'posted to the topic',
 	'DIGESTS_POSTS_TYPE_ANY'			=> 'All posts',

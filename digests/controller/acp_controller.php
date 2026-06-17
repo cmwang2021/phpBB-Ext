@@ -430,7 +430,7 @@ class acp_controller
 				{
 
 					// Make some translations into something more readable
-					switch($row['user_digest_type'])
+					switch ($row['user_digest_type'])
 					{
 						case constants::DIGESTS_DAILY_VALUE:
 							$digest_type = $this->language->lang('DIGESTS_DAILY');
@@ -449,7 +449,7 @@ class acp_controller
 						break;
 					}
 
-					switch($row['user_digest_format'])
+					switch ($row['user_digest_format'])
 					{
 						case constants::DIGESTS_HTML_VALUE:
 							$digest_format = $this->language->lang('DIGESTS_FORMAT_HTML');
@@ -484,7 +484,7 @@ class acp_controller
 					$hour_utc = array();
 					$display_hour = array();
 
-					for($i=0; $i<24; $i++)
+					for ($i=0; $i<24; $i++)
 					{
 						if (($i - $my_time_zone) < 0)
 						{
@@ -823,7 +823,7 @@ class acp_controller
 				$result = $this->db->sql_query($sql);
 				$rowset = $this->db->sql_fetchrowset($result);
 
-				for($i=0;$i<24;$i++)
+				for ($i=0; $i<24; $i++)
 				{
 
 					// Convert digest hour to UTC
@@ -1124,7 +1124,7 @@ class acp_controller
 			if (!check_form_key($form_key))
 			{
 				$error[] = $this->language->lang('FORM_INVALID');
-				$mode = NULL;
+				$mode = null;
 			}
 
 			if ($mode === 'digests_general')
@@ -1213,7 +1213,7 @@ class acp_controller
 				ksort($request_vars);
 
 				// Set some flags
-				$current_user_id = NULL;
+				$current_user_id = null;
 				$user_fields_found = 0;
 
 				foreach ($request_vars as $name => $value)
@@ -1237,7 +1237,7 @@ class acp_controller
 						$user_id = substr($name, 5, $delimiter_pos - 5);
 						$column_name_fragment = substr($name,$delimiter_pos + 1);
 
-						if ($current_user_id === NULL)
+						if ($current_user_id === null)
 						{
 							$current_user_id = $user_id;
 						}
@@ -1586,7 +1586,7 @@ class acp_controller
 
 							$sql2 = 'UPDATE ' . USERS_TABLE . '
 							SET ' . $this->db->sql_build_array('UPDATE', $sql_ary) . '
-							WHERE user_id = ' . (int)  $row['user_id'];
+							WHERE user_id = ' . (int) $row['user_id'];
 
 							$this->db->sql_query($sql2);
 
@@ -1910,7 +1910,7 @@ class acp_controller
 			{
 				$message_type = E_USER_NOTICE;
 			}
-			
+
 			if (!isset($message))
 			{
 				if (count($error))
@@ -1951,7 +1951,7 @@ class acp_controller
 		}
 
 	}
-	
+
 	function average_subscribers_per_hour()
 	{
 
@@ -2074,7 +2074,7 @@ class acp_controller
 		$digest_send_hour_utc = '';
 
 		// Populate the Hour Sent select control
-		for($i=-1;$i<24;$i++)
+		for ($i=-1; $i<24; $i++)
 		{
 			$selected = ($i == $this->config['phpbbservices_digests_user_digest_send_hour_gmt']) ? ' selected="selected"' : '';
 			$display_text = ($i == -1) ? $this->language->lang('DIGESTS_RANDOM_HOUR') : $i;
