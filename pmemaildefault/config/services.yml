@@ -1,5 +1,7 @@
 services:
     ecyaz.pmemaildefault.listener:
         class: ecyaz\pmemaildefault\event\main_listener
+        arguments:
+            - '@config'
         tags:
             - { name: event.listener }

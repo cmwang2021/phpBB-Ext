@@ -1,9 +1,9 @@
 {
     "name": "ecyaz/pmemaildefault",
     "type": "phpbb-extension",
-    "description": "Turns on email notifications for incoming private messages by default, for new and existing users.",
+    "description": "Sets email notifications for incoming private messages on or off by default, for new and existing users, from an ACP toggle.",
     "homepage": "https://github.com/ECYaz/phpBB-Extensions",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "GPL-2.0-only",
     "keywords": ["phpbb", "extension", "notifications", "private-messages", "email"],
     "authors": [

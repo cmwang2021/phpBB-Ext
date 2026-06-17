@@ -5,6 +5,17 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class main_listener implements EventSubscriberInterface
 {
+	/** @var \phpbb\config\config */
+	protected $config;
+
+	/**
+	 * @param \phpbb\config\config $config
+	 */
+	public function __construct(\phpbb\config\config $config)
+	{
+		$this->config = $config;
+	}
+
 	public static function getSubscribedEvents()
 	{
 		return [
@@ -16,10 +27,19 @@ class main_listener implements EventSubscriberInterface
 	 * Add an email subscription for the "private message" notification type to the
 	 * default notifications inserted when a new user is created.
 	 *
+	 * Only runs while the admin has the default switched ON
+	 * (config 'pmemaildefault_enabled'). When it is OFF we add nothing, so the new
+	 * user keeps phpBB's stock default of no PM email subscription.
+	 *
 	 * @param \phpbb\event\data $event
 	 */
 	public function add_pm_email_subscription($event)
 	{
+		if (empty($this->config['pmemaildefault_enabled']))
+		{
+			return;
+		}
+
 		$notifications_data = $event['notifications_data'];
 
 		$notifications_data[] = [
