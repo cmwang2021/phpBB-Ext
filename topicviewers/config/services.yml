@@ -1,0 +1,10 @@
+services:
+    ecyaz.topicviewers.listener:
+        class: ecyaz\topicviewers\event\main_listener
+        arguments:
+            - '@dbal.conn'
+            - '@config'
+            - '@template'
+            - '@language'
+        tags:
+            - { name: event.listener }

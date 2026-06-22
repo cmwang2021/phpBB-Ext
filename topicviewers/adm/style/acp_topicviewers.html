@@ -1,0 +1,36 @@
+<!-- INCLUDE overall_header.html -->
+
+<h1>{L_ACP_TOPICVIEWERS_SETTINGS}</h1>
+
+<p>{L_ACP_TOPICVIEWERS_EXPLAIN}</p>
+
+<form id="acp_topicviewers" method="post" action="{U_ACTION}">
+
+	<fieldset>
+		<legend>{L_ACP_TOPICVIEWERS_SETTINGS}</legend>
+		<dl>
+			<dt><label for="topicviewers_enable">{L_ACP_TOPICVIEWERS_ENABLE}{L_COLON}</label><br /><span>{L_ACP_TOPICVIEWERS_ENABLE_EXPLAIN}</span></dt>
+			<dd>
+				<label><input type="radio" class="radio" name="topicviewers_enable" value="1"<!-- IF S_TOPICVIEWERS_ENABLE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+				<label><input type="radio" class="radio" name="topicviewers_enable" value="0"<!-- IF not S_TOPICVIEWERS_ENABLE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_ACP_TOPICVIEWERS_DISPLAY}{L_COLON}</label><br /><span>{L_ACP_TOPICVIEWERS_DISPLAY_EXPLAIN}</span></dt>
+			<dd>
+				<label><input type="radio" class="radio" name="topicviewers_show_names" value="0"<!-- IF S_TOPICVIEWERS_SHOW_NAMES == 0 --> checked="checked"<!-- ENDIF --> /> {L_ACP_TOPICVIEWERS_DISPLAY_COUNTS}</label><br />
+				<label><input type="radio" class="radio" name="topicviewers_show_names" value="1"<!-- IF S_TOPICVIEWERS_SHOW_NAMES == 1 --> checked="checked"<!-- ENDIF --> /> {L_ACP_TOPICVIEWERS_DISPLAY_NAMES}</label>
+			</dd>
+		</dl>
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<legend>{L_ACP_SUBMIT_CHANGES}</legend>
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+		{S_FORM_TOKEN}
+	</fieldset>
+
+</form>
+
+<!-- INCLUDE overall_footer.html -->

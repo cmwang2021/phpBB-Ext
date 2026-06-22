@@ -1,0 +1,20 @@
+{
+    "name": "ecyaz/topicviewers",
+    "type": "phpbb-extension",
+    "description": "Shows how many registered users and guests are currently viewing each topic.",
+    "homepage": "https://github.com/ECYaz/phpBB-Extensions",
+    "version": "1.0.0",
+    "license": "GPL-2.0-only",
+    "authors": [
+        { "name": "ECYaz" }
+    ],
+    "require": {
+        "php": ">=7.2"
+    },
+    "extra": {
+        "display-name": "Topic Viewers",
+        "soft-require": {
+            "phpbb/phpbb": ">=3.3.0,<4.0.0@dev"
+        }
+    }
+}

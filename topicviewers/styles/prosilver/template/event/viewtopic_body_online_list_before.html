@@ -1,0 +1,17 @@
+<!-- IF S_TOPICVIEWERS -->
+	<div class="stat-block topicviewers">
+		<p>
+			<strong>{L_TOPICVIEWERS_VIEWING}</strong>
+			<!-- IF S_TOPICVIEWERS_NAMES -->
+				<!-- IF TOPICVIEWERS_REG_COUNT -->
+					<!-- BEGIN topicviewers_member -->{topicviewers_member.USERNAME_FULL}<!-- IF not topicviewers_member.S_LAST_ROW -->, <!-- ENDIF --><!-- END topicviewers_member -->
+					<!-- IF TOPICVIEWERS_GUEST_COUNT --> {L_TOPICVIEWERS_AND} {TOPICVIEWERS_GUESTS}<!-- ENDIF -->
+				<!-- ELSE -->
+					{TOPICVIEWERS_GUESTS}
+				<!-- ENDIF -->
+			<!-- ELSE -->
+				{TOPICVIEWERS_REGISTERED} {L_TOPICVIEWERS_AND} {TOPICVIEWERS_GUESTS}
+			<!-- ENDIF -->
+		</p>
+	</div>
+<!-- ENDIF -->
