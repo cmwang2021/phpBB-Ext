@@ -131,6 +131,15 @@ class authenticator
 			throw new exception('account_unavailable', 403);
 		}
 
+		// A banned account must not be able to act through the API, just as it
+		// cannot log in to the board. check_ban() returns ban info (truthy) when
+		// the user is banned and is not excluded; $return = true keeps it from
+		// rendering phpBB's ban page and exiting.
+		if ($this->user->check_ban((int) $cred['user_id'], false, false, true))
+		{
+			throw new exception('account_banned', 403);
+		}
+
 		// Become the credential's user: replace the current (guest) session data
 		// with the linked account and load its ACL. From here on every
 		// permission check and submit_post() call runs as this account.

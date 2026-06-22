@@ -37,6 +37,7 @@ services:
             - '@auth'
             - '@config'
             - '@dbal.conn'
+            - '@content.visibility'
             - '%core.root_path%'
             - '%core.php_ext%'
 

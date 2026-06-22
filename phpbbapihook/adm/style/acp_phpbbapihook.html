@@ -13,7 +13,7 @@
 
 <!-- IF S_VIEW_LOG -->
 
-<h2>{L_ACP_PHPBBAPIHOOK_LOG_TITLE} &mdash; {LOG_KEY_NAME}</h2>
+<h2>{L_ACP_PHPBBAPIHOOK_LOG_TITLE} &mdash; {{ LOG_KEY_NAME|e }}</h2>
 <p><a href="{U_ACTION}">{L_ACP_PHPBBAPIHOOK_BACK_TO_LIST}</a></p>
 
 <!-- IF logs -->
@@ -33,12 +33,12 @@
 		<!-- BEGIN logs -->
 		<tr>
 			<td>{logs.LOG_TIME}</td>
-			<td>{logs.LOG_IP}</td>
-			<td>{logs.LOG_METHOD}</td>
-			<td>{logs.LOG_ROUTE}</td>
-			<td>{logs.LOG_ACTION}</td>
+			<td>{{ logs.LOG_IP|e }}</td>
+			<td>{{ logs.LOG_METHOD|e }}</td>
+			<td>{{ logs.LOG_ROUTE|e }}</td>
+			<td>{{ logs.LOG_ACTION|e }}</td>
 			<td>{logs.LOG_STATUS}</td>
-			<td>{logs.LOG_DETAIL}</td>
+			<td>{{ logs.LOG_DETAIL|e }}</td>
 		</tr>
 		<!-- END logs -->
 	</tbody>
@@ -60,7 +60,7 @@
 		<dl>
 			<dt><label for="key_name">{L_ACP_PHPBBAPIHOOK_KEY_NAME}{L_COLON}</label></dt>
 			<dd>
-				<input type="text" id="key_name" name="key_name" value="{EDIT_KEY_NAME}" size="40" maxlength="255" />
+				<input type="text" id="key_name" name="key_name" value="{{ EDIT_KEY_NAME|e }}" size="40" maxlength="255" />
 				<p>{L_ACP_PHPBBAPIHOOK_KEY_NAME_EXPLAIN}</p>
 			</dd>
 		</dl>
@@ -81,7 +81,7 @@
 		<dl>
 			<dt><label for="ip_allowlist">{L_ACP_PHPBBAPIHOOK_IP_ALLOWLIST}{L_COLON}</label></dt>
 			<dd>
-				<input type="text" id="ip_allowlist" name="ip_allowlist" value="{EDIT_IP_ALLOWLIST}" size="60" />
+				<input type="text" id="ip_allowlist" name="ip_allowlist" value="{{ EDIT_IP_ALLOWLIST|e }}" size="60" />
 				<p>{L_ACP_PHPBBAPIHOOK_IP_ALLOWLIST_EXPLAIN}</p>
 			</dd>
 		</dl>
@@ -146,9 +146,9 @@
 		<!-- BEGIN keys -->
 		<tr>
 			<td>{keys.KEY_ID}</td>
-			<td>{keys.KEY_NAME}</td>
-			<td><code>{keys.KEY_PREFIX}</code></td>
-			<td>{keys.USERNAME}</td>
+			<td>{{ keys.KEY_NAME|e }}</td>
+			<td><code>{{ keys.KEY_PREFIX|e }}</code></td>
+			<td>{{ keys.USERNAME|e }}</td>
 			<td>
 				<!-- IF keys.ENABLED -->{L_ACP_PHPBBAPIHOOK_ENABLED}<!-- ELSE -->{L_ACP_PHPBBAPIHOOK_DISABLED}<!-- ENDIF -->
 				&nbsp;/&nbsp;

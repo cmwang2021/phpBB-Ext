@@ -3,6 +3,29 @@
 All notable changes to **phpbbAPIhook** are documented here.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.1] — 2026-06-22
+
+Security hardening from a full audit. No API or schema changes.
+
+### Security
+- The linked account's ban status is now enforced: a banned user can no longer
+  act through the API (`account_banned`, 403), just as they cannot log in.
+- Topic visibility is enforced on read and reply: soft-deleted or unapproved
+  topics that a non-moderator may not see are reported as `topic_not_found`
+  (404) instead of leaking their metadata or accepting replies.
+- The ACP enable/disable toggle now requires a CSRF link hash, closing a
+  cross-site request forgery hole on a state-changing GET link.
+- Corrupt forum allow-lists now fail closed (deny every forum) instead of
+  silently granting access to all forums.
+- All admin-rendered, attacker-influenceable values (credential/user names, and
+  the request method/route/detail in the audit log) are HTML-escaped in the ACP
+  templates, preventing stored XSS. The audit log now records the real request
+  path instead of duplicating the action name.
+
+### Tests
+- Added functional tests for each of the above (banned user, hidden topic,
+  CSRF-protected toggle, fail-closed allow-list, ACP output escaping).
+
 ## [1.0.0] — 2026-06-17
 
 Initial release.

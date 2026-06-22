@@ -105,6 +105,7 @@ Every error response uses the same shape:
 | 429         | `rate_limit_exceeded`      | Credential exceeded its configured request rate limit. |
 | 403         | `topic_locked`             | Topic is locked; linked user lacks `m_lock`.         |
 | 403         | `account_unavailable`      | Credential's `user_id` is missing or inactive.       |
+| 403         | `account_banned`           | The linked account is banned on the board.           |
 | 403         | `credential_disabled`      | Credential has been disabled in ACP.                 |
 | 403         | `credential_expired`       | Credential has passed its expiration date.           |
 | 403         | `ip_not_allowed`           | Caller's IP is not on the credential's allow-list.   |

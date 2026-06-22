@@ -69,11 +69,28 @@ class auth_context
 	 * Whether this credential's forum allow-list permits the given forum.
 	 * This is the credential restriction only; the user's phpBB ACL is checked
 	 * separately and independently.
+	 *
+	 * Fails closed: an allow-list that is present but cannot be parsed (corrupt
+	 * JSON) denies every forum rather than silently granting access to all.
 	 */
 	public function can_access_forum($forum_id)
 	{
-		$allowed = $this->get_allowed_forums();
+		$raw = trim((string) $this->credential['forum_ids']);
 
-		return empty($allowed) || in_array((int) $forum_id, $allowed, true);
+		// No allow-list at all means "any forum the linked user can already see".
+		if ($raw === '')
+		{
+			return true;
+		}
+
+		$ids = json_decode($raw, true);
+
+		// Present but unparseable / empty -> deny, never fall back to "all".
+		if (!is_array($ids) || empty($ids))
+		{
+			return false;
+		}
+
+		return in_array((int) $forum_id, array_map('intval', $ids), true);
 	}
 }

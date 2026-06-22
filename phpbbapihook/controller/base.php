@@ -97,7 +97,7 @@ abstract class base
 			$key_id,
 			(string) $this->user->ip,
 			(string) $this->request->server('REQUEST_METHOD'),
-			$action,
+			(string) $this->request->server('REQUEST_URI'),
 			$action,
 			$status,
 			$detail

@@ -29,6 +29,9 @@ class topics extends base
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
+	/** @var \phpbb\content_visibility */
+	protected $content_visibility;
+
 	/** @var string */
 	protected $root_path;
 
@@ -44,17 +47,19 @@ class topics extends base
 		\phpbb\auth\auth $auth,
 		\phpbb\config\config $config,
 		\phpbb\db\driver\driver_interface $db,
+		\phpbb\content_visibility $content_visibility,
 		$root_path,
 		$php_ext
 	)
 	{
 		parent::__construct($authenticator, $responder, $logger, $request, $user);
 
-		$this->auth      = $auth;
-		$this->config    = $config;
-		$this->db        = $db;
-		$this->root_path = $root_path;
-		$this->php_ext   = $php_ext;
+		$this->auth               = $auth;
+		$this->config             = $config;
+		$this->db                 = $db;
+		$this->content_visibility = $content_visibility;
+		$this->root_path          = $root_path;
+		$this->php_ext            = $php_ext;
 	}
 
 	/**
@@ -138,6 +143,10 @@ class topics extends base
 
 			$forum_id = (int) $topic['forum_id'];
 
+			// Soft-deleted / unapproved topics the linked user may not see are
+			// reported as not found, exactly as phpBB hides them.
+			$this->assert_topic_visible($topic, $forum_id);
+
 			if (!$ctx->can_access_forum($forum_id))
 			{
 				throw new exception('forum_not_allowed', 403);
@@ -183,6 +192,8 @@ class topics extends base
 			}
 
 			$forum_id = (int) $topic['forum_id'];
+
+			$this->assert_topic_visible($topic, $forum_id);
 
 			if (!$ctx->can_access_forum($forum_id) || !$this->auth->acl_get('f_read', $forum_id))
 			{
@@ -237,6 +248,23 @@ class topics extends base
 
 			default:
 				throw new exception('invalid_topic_type', 400);
+		}
+	}
+
+	/**
+	 * Reject access to a topic the linked user is not allowed to see (soft
+	 * deleted, or unapproved without m_approve). Reported as 'topic_not_found'
+	 * so the API never reveals the existence of a hidden topic.
+	 *
+	 * @param array $topic    Topic row including topic_visibility.
+	 * @param int   $forum_id
+	 * @throws exception
+	 */
+	protected function assert_topic_visible(array $topic, $forum_id)
+	{
+		if (!$this->content_visibility->is_visible('topic', (int) $forum_id, $topic))
+		{
+			throw new exception('topic_not_found', 404);
 		}
 	}
 

@@ -70,6 +70,13 @@ class main_module
 		// ------------------------------------------------------------------ //
 		if ($action === 'toggle' && $key_id)
 		{
+			// Enabling/disabling a credential is a state change, so the GET link
+			// must carry a valid per-session hash (CSRF protection).
+			if (!check_link_hash($request->variable('hash', ''), 'phpbbapihook_toggle'))
+			{
+				trigger_error('FORM_INVALID', E_USER_WARNING);
+			}
+
 			$row = $credential_manager->get($key_id);
 			if ($row === null)
 			{
@@ -147,10 +154,10 @@ class main_module
 
 			$template->assign_vars([
 				'S_EDIT_MODE'		=> true,
-				'EDIT_KEY_ID'		=> $row['key_id'],
+				'EDIT_KEY_ID'		=> (int) $row['key_id'],
 				'EDIT_KEY_NAME'		=> $row['key_name'],
-				'EDIT_USER_ID'		=> $row['user_id'],
-				'EDIT_FORUM_IDS'	=> $row['forum_ids'] !== '' ? implode(', ', json_decode($row['forum_ids'], true) ?: []) : '',
+				'EDIT_USER_ID'		=> (int) $row['user_id'],
+				'EDIT_FORUM_IDS'	=> $row['forum_ids'] !== '' ? implode(', ', array_map('intval', json_decode($row['forum_ids'], true) ?: [])) : '',
 				'EDIT_IP_ALLOWLIST'	=> $row['ip_allowlist'],
 				'EDIT_RATE_LIMIT'	=> $row['rate_limit'],
 				'EDIT_EXPIRATION'	=> $expiration_str,
@@ -186,7 +193,7 @@ class main_module
 					'LOG_METHOD'	=> $log_row['log_method'],
 					'LOG_ROUTE'		=> $log_row['log_route'],
 					'LOG_ACTION'	=> $log_row['log_action'],
-					'LOG_STATUS'	=> $log_row['log_status'],
+					'LOG_STATUS'	=> (int) $log_row['log_status'],
 					'LOG_DETAIL'	=> $log_row['log_detail'],
 				]);
 			}
@@ -232,7 +239,7 @@ class main_module
 					'LAST_USED'		=> $last_str,
 					'LAST_IP'		=> $cred['last_ip'],
 					'U_EDIT'		=> $this->u_action . '&amp;action=edit&amp;id=' . $cid,
-					'U_TOGGLE'		=> $this->u_action . '&amp;action=toggle&amp;id=' . $cid,
+					'U_TOGGLE'		=> $this->u_action . '&amp;action=toggle&amp;id=' . $cid . '&amp;hash=' . generate_link_hash('phpbbapihook_toggle'),
 					'U_DELETE'		=> $this->u_action . '&amp;action=delete&amp;id=' . $cid,
 					'U_VIEWLOG'		=> $this->u_action . '&amp;action=viewlog&amp;id=' . $cid,
 				]);
