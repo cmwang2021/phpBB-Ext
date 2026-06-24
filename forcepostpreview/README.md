@@ -6,7 +6,12 @@ Submit becomes available; if the post is edited again, a fresh preview is
 required. The **Preview** and **Save draft** buttons always stay usable.
 
 Works on the full posting editor — new topic, reply, quote, edit, and private
-message compose. (Quick-reply is not covered.)
+message compose.
+
+**Quick reply is covered too.** Because the quick-reply box has no inline
+preview, its **Submit** button is locked and the **Full Editor & Preview**
+button stays enabled — so the only way forward is the full editor, where the
+preview gate above applies.
 
 > **Note:** this is a client-side UI gate. A user with browser dev tools, or with
 > JavaScript disabled, can still submit without previewing — phpBB has no reliable

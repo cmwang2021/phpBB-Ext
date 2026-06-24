@@ -14,5 +14,6 @@ if (!defined('IN_PHPBB'))
 }
 
 $lang = array_merge($lang ?? [], [
-	'FPP_PREVIEW_REQUIRED' => 'Please preview your post before submitting.',
+	'FPP_PREVIEW_REQUIRED'    => 'Please preview your post before submitting.',
+	'FPP_PREVIEW_REQUIRED_QR' => 'Please use the "Full Editor & Preview" button to preview your post before submitting.',
 ]);
