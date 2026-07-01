@@ -282,6 +282,11 @@ class topics extends base
 	 */
 	protected function assert_forum_postable(array $forum_row, $forum_id, $lock_override)
 	{
+		if (isset($forum_row['forum_type']) && (int) $forum_row['forum_type'] !== FORUM_POST)
+		{
+			throw new exception('forum_not_postable', 403);
+		}
+
 		if ((string) $forum_row['forum_password'] !== '')
 		{
 			throw new exception('forum_password_required', 403);
@@ -343,7 +348,11 @@ class topics extends base
 		$message_parser = new \parse_message();
 		$message_parser->message = $content;
 
-		$errors = $message_parser->parse(true, true, true);
+		$enable_bbcode  = ($this->config['allow_bbcode'] && $this->auth->acl_get('f_bbcode', $forum_id)) ? true : false;
+		$enable_smilies = ($this->config['allow_smilies'] && $this->auth->acl_get('f_smilies', $forum_id)) ? true : false;
+		$enable_urls    = true;
+
+		$errors = $message_parser->parse($enable_bbcode, $enable_urls, $enable_smilies);
 		if (!empty($errors))
 		{
 			throw new exception('invalid_content', 400, implode('; ', $errors));
@@ -363,9 +372,10 @@ class topics extends base
 			'icon_id'             => 0,
 			'poster_id'           => (int) $this->user->data['user_id'],
 			'enable_sig'          => true,
-			'enable_bbcode'       => true,
-			'enable_smilies'      => true,
-			'enable_urls'         => true,
+			'enable_bbcode'       => $enable_bbcode,
+			'enable_smilies'      => $enable_smilies,
+			'enable_urls'         => $enable_urls,
+			'enable_markdown'     => true,
 			'enable_indexing'     => true,
 			'message_md5'         => md5($message_parser->message),
 			'post_checksum'       => '',

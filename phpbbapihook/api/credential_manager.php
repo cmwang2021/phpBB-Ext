@@ -105,9 +105,6 @@ class credential_manager
 		return ($row === false) ? null : $row;
 	}
 
-	/**
-	 * @return array All credentials, newest first.
-	 */
 	public function all()
 	{
 		$rows = [];
@@ -120,6 +117,36 @@ class credential_manager
 		$this->db->sql_freeresult($result);
 
 		return $rows;
+	}
+
+	/**
+	 * @return array All credentials for a specific user, newest first.
+	 */
+	public function all_by_user($user_id)
+	{
+		$rows = [];
+		$sql = 'SELECT * FROM ' . $this->keys_table . ' WHERE user_id = ' . (int) $user_id . ' ORDER BY key_id DESC';
+		$result = $this->db->sql_query($sql);
+		while ($row = $this->db->sql_fetchrow($result))
+		{
+			$rows[] = $row;
+		}
+		$this->db->sql_freeresult($result);
+
+		return $rows;
+	}
+
+	/**
+	 * @return int Total number of credentials for a specific user.
+	 */
+	public function count_by_user($user_id)
+	{
+		$sql = 'SELECT COUNT(key_id) AS total_keys FROM ' . $this->keys_table . ' WHERE user_id = ' . (int) $user_id;
+		$result = $this->db->sql_query($sql);
+		$count = (int) $this->db->sql_fetchfield('total_keys');
+		$this->db->sql_freeresult($result);
+
+		return $count;
 	}
 
 	public function update($key_id, array $data)

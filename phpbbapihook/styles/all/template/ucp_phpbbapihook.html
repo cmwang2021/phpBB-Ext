@@ -1,0 +1,175 @@
+<!-- INCLUDE ucp_header.html -->
+
+<h2>{L_UCP_PHPBBAPIHOOK_KEYS_TITLE}</h2>
+
+<!-- IF S_TOKEN_CREATED -->
+<div class="successbox" style="margin-bottom: 20px; padding: 15px; border: 1px solid #4CAF50; background-color: #E8F5E9;">
+	<h3>{L_UCP_PHPBBAPIHOOK_TOKEN_NOTICE}</h3>
+	<p>{L_UCP_PHPBBAPIHOOK_TOKEN_WARNING}</p>
+	<p><strong>{L_UCP_PHPBBAPIHOOK_TOKEN_LABEL}{L_COLON}</strong></p>
+	<p><code style="font-size:1.2em; word-break:break-all; display:block; padding:10px; background:#fff; border:1px solid #ccc;">{NEW_TOKEN}</code></p>
+</div>
+<!-- ENDIF -->
+
+<!-- IF S_VIEW_LOG -->
+
+<h3>{L_UCP_PHPBBAPIHOOK_LOG_TITLE} &mdash; {{ LOG_KEY_NAME|e }}</h3>
+<p><a href="{U_ACTION}">&laquo; {L_UCP_PHPBBAPIHOOK_BACK_TO_LIST}</a></p>
+
+<!-- IF logs -->
+<table class="table1" style="width:100%">
+	<thead>
+		<tr>
+			<th>{L_UCP_PHPBBAPIHOOK_LOG_COL_TIME}</th>
+			<th>{L_UCP_PHPBBAPIHOOK_LOG_COL_IP}</th>
+			<th>{L_UCP_PHPBBAPIHOOK_LOG_COL_METHOD}</th>
+			<th>{L_UCP_PHPBBAPIHOOK_LOG_COL_ROUTE}</th>
+			<th>{L_UCP_PHPBBAPIHOOK_LOG_COL_STATUS}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- BEGIN logs -->
+		<tr class="<!-- IF logs.S_ROW_COUNT is even -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+			<td>{logs.LOG_TIME}</td>
+			<td>{{ logs.LOG_IP|e }}</td>
+			<td>{{ logs.LOG_METHOD|e }}</td>
+			<td>{{ logs.LOG_ROUTE|e }}</td>
+			<td>{logs.LOG_STATUS}</td>
+		</tr>
+		<!-- END logs -->
+	</tbody>
+</table>
+<!-- ELSE -->
+<p class="error">{L_UCP_PHPBBAPIHOOK_LOG_EMPTY}</p>
+<!-- ENDIF -->
+
+<!-- ELSE -->
+
+<!-- IF S_EDIT_MODE -->
+
+<h3>{L_UCP_PHPBBAPIHOOK_EDIT_TITLE}</h3>
+<p><a href="{U_ACTION}">&laquo; {L_UCP_PHPBBAPIHOOK_BACK_TO_LIST}</a></p>
+
+<form id="ucp_phpbbapihook_edit" method="post" action="{U_SAVE}">
+	<fieldset>
+		<dl>
+			<dt><label for="key_name">{L_UCP_PHPBBAPIHOOK_KEY_NAME}{L_COLON}</label><br /><span>{L_UCP_PHPBBAPIHOOK_KEY_NAME_EXPLAIN}</span></dt>
+			<dd>
+				<input type="text" id="key_name" name="key_name" value="{{ EDIT_KEY_NAME|e }}" class="inputbox" maxlength="255" />
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="forum_ids">{L_UCP_PHPBBAPIHOOK_FORUM_IDS}{L_COLON}</label><br /><span>{L_UCP_PHPBBAPIHOOK_FORUM_IDS_EXPLAIN}</span></dt>
+			<dd>
+				<input type="text" id="forum_ids" name="forum_ids" value="{EDIT_FORUM_IDS}" class="inputbox" />
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="ip_allowlist">{L_UCP_PHPBBAPIHOOK_IP_ALLOWLIST}{L_COLON}</label><br /><span>{L_UCP_PHPBBAPIHOOK_IP_ALLOWLIST_EXPLAIN}</span></dt>
+			<dd>
+				<input type="text" id="ip_allowlist" name="ip_allowlist" value="{{ EDIT_IP_ALLOWLIST|e }}" class="inputbox" />
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="read_only">{L_UCP_PHPBBAPIHOOK_READ_ONLY_FIELD}{L_COLON}</label><br /><span>{L_UCP_PHPBBAPIHOOK_READ_ONLY_EXPLAIN}</span></dt>
+			<dd>
+				<input type="checkbox" id="read_only" name="read_only" class="radio" value="1"<!-- IF S_EDIT_READ_ONLY --> checked="checked"<!-- ENDIF --> />
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="is_enabled">{L_UCP_PHPBBAPIHOOK_IS_ENABLED}{L_COLON}</label><br /><span>{L_UCP_PHPBBAPIHOOK_IS_ENABLED_EXPLAIN}</span></dt>
+			<dd>
+				<input type="checkbox" id="is_enabled" name="is_enabled" class="radio" value="1"<!-- IF S_EDIT_ENABLED --> checked="checked"<!-- ENDIF --> />
+			</dd>
+		</dl>
+	</fieldset>
+	<fieldset class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+		{S_FORM_TOKEN}
+	</fieldset>
+</form>
+
+<!-- ELSE -->
+
+<!-- Credentials list table -->
+<!-- IF keys -->
+<table class="table1" style="width:100%">
+	<thead>
+		<tr>
+			<th>{L_UCP_PHPBBAPIHOOK_COL_NAME}</th>
+			<th>{L_UCP_PHPBBAPIHOOK_COL_PREFIX}</th>
+			<th>{L_UCP_PHPBBAPIHOOK_COL_STATUS}</th>
+			<th>{L_UCP_PHPBBAPIHOOK_COL_LAST_USED}</th>
+			<th>{L_UCP_PHPBBAPIHOOK_COL_ACTIONS}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- BEGIN keys -->
+		<tr class="<!-- IF keys.S_ROW_COUNT is even -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+			<td>{{ keys.KEY_NAME|e }}</td>
+			<td><code>{{ keys.KEY_PREFIX|e }}</code></td>
+			<td>
+				<!-- IF keys.ENABLED -->{L_UCP_PHPBBAPIHOOK_ENABLED}<!-- ELSE -->{L_UCP_PHPBBAPIHOOK_DISABLED}<!-- ENDIF -->
+				<br />
+				<!-- IF keys.READ_ONLY -->{L_UCP_PHPBBAPIHOOK_READ_ONLY}<!-- ELSE -->{L_UCP_PHPBBAPIHOOK_READ_WRITE}<!-- ENDIF -->
+			</td>
+			<td>{keys.LAST_USED}</td>
+			<td>
+				<a href="{keys.U_EDIT}">{L_UCP_PHPBBAPIHOOK_ACTION_EDIT}</a> &bull;
+				<a href="{keys.U_TOGGLE}"><!-- IF keys.ENABLED -->{L_UCP_PHPBBAPIHOOK_ACTION_DISABLE}<!-- ELSE -->{L_UCP_PHPBBAPIHOOK_ACTION_ENABLE}<!-- ENDIF --></a><br />
+				<a href="{keys.U_VIEWLOG}">{L_UCP_PHPBBAPIHOOK_ACTION_VIEWLOG}</a> &bull;
+				<a href="{keys.U_DELETE}">{L_UCP_PHPBBAPIHOOK_ACTION_DELETE}</a>
+			</td>
+		</tr>
+		<!-- END keys -->
+	</tbody>
+</table>
+<!-- ELSE -->
+<p>{L_UCP_PHPBBAPIHOOK_NO_KEYS}</p>
+<!-- ENDIF -->
+
+<!-- IF S_LIMIT_REACHED -->
+	<div class="errorbox" style="margin-top:20px;">{L_UCP_PHPBBAPIHOOK_LIMIT_REACHED}</div>
+<!-- ELSE -->
+	<hr />
+	<h3>{L_UCP_PHPBBAPIHOOK_ADD_TITLE}</h3>
+
+	<form id="ucp_phpbbapihook_add" method="post" action="{U_ADD_ACTION}">
+		<fieldset>
+			<dl>
+				<dt><label for="key_name">{L_UCP_PHPBBAPIHOOK_KEY_NAME}{L_COLON}</label><br /><span>{L_UCP_PHPBBAPIHOOK_KEY_NAME_EXPLAIN}</span></dt>
+				<dd>
+					<input type="text" id="key_name" name="key_name" value="" class="inputbox" maxlength="255" />
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="forum_ids">{L_UCP_PHPBBAPIHOOK_FORUM_IDS}{L_COLON}</label><br /><span>{L_UCP_PHPBBAPIHOOK_FORUM_IDS_EXPLAIN}</span></dt>
+				<dd>
+					<input type="text" id="forum_ids" name="forum_ids" value="" class="inputbox" />
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="ip_allowlist">{L_UCP_PHPBBAPIHOOK_IP_ALLOWLIST}{L_COLON}</label><br /><span>{L_UCP_PHPBBAPIHOOK_IP_ALLOWLIST_EXPLAIN}</span></dt>
+				<dd>
+					<input type="text" id="ip_allowlist" name="ip_allowlist" value="" class="inputbox" />
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="read_only">{L_UCP_PHPBBAPIHOOK_READ_ONLY_FIELD}{L_COLON}</label><br /><span>{L_UCP_PHPBBAPIHOOK_READ_ONLY_EXPLAIN}</span></dt>
+				<dd>
+					<input type="checkbox" id="read_only" name="read_only" class="radio" value="1" checked="checked" />
+				</dd>
+			</dl>
+		</fieldset>
+		<fieldset class="submit-buttons">
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_UCP_PHPBBAPIHOOK_ACTION_ADD}" />
+			{S_FORM_TOKEN}
+		</fieldset>
+	</form>
+<!-- ENDIF -->
+
+<!-- ENDIF -->
+<!-- ENDIF -->
+
+<!-- INCLUDE ucp_footer.html -->
